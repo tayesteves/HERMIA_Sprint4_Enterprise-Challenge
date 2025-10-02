@@ -13,7 +13,7 @@ Como ler o diagrama (explicação simples)
 7) Dashboard (Streamlit): exibe KPIs (média/variação dos sensores, score do modelo, #alertas) e permite evidenciar um alerta.
 8) Alertas (WhatsApp / E-mail / Log): regra mínima demonstrada (ex.: vib ≥ 0,8 ou air_q ≤ 60); registrar evento (timestamp, regra, valor, ação).
 
-▶️ Ordem de execução (pipeline)
+Ordem de execução (pipeline)
 
 Ingestão: iniciar broker/endpoint e consumer (gera raw + logs).
 Banco: executar scripts de criação/carga.
