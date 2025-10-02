@@ -1,4 +1,4 @@
-*Arquitetura – Sprint 4 (HERMIA)*
+Arquitetura – Sprint 4 (HERMIA)
 
 Esta sprint integra as Sprints 1–3 em um fluxo fim-a-fim executável: Sensores (ESP32/sim) → Transporte (MQTT/HTTP/Serial) → Ingestão/ETL → Banco (Oracle) → ML (batch) → Dashboard + Alertas.
 
