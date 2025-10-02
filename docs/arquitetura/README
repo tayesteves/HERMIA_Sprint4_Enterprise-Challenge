@@ -1,33 +1,21 @@
-Arquitetura – Sprint 4 (HERMIA)
+*Arquitetura – Sprint 4 (HERMIA)*
 
 Esta sprint integra as Sprints 1–3 em um fluxo fim-a-fim executável: Sensores (ESP32/sim) → Transporte (MQTT/HTTP/Serial) → Ingestão/ETL → Banco (Oracle) → ML (batch) → Dashboard + Alertas.
 
-Diagrama: docs/arquitetura/diagram.png · Editável: docs/arquitetura/diagram.drawio
-
 Como ler o diagrama (explicação simples)
 
-Sensores (Temperatura, Vibração, Luminosidade, Qualidade do ar): leituras periódicas com timestamp (intervalo configurável, ex. 1–10 s).
-
-ESP32 / Simulação (Wokwi/VSCode/PlatformIO): lê os sensores e envia payload JSON com timestamp.
-
-Transporte (MQTT/HTTP/Serial): broker/endpoint de ingestão que assina/recebe mensagens (ex.: factory/sensors/#).
-
-Ingestão / ETL simples: converte raw → CSV/JSON e realiza INSERT em lote no banco (com logs como evidência).
-
-Banco de Dados (Oracle): armazenamento relacional conforme DER; chaves/índices para integridade e consulta. Tabelas-chave: devices, readings (temp, vib, lum, air_q, payload), alerts, models.
-
-ML (batch): seleciona dados do DB para treino/inferência e gera ≥1 métrica + ≥1 gráfico.
-
-Dashboard (Streamlit): exibe KPIs (média/variação dos sensores, score do modelo, #alertas) e permite evidenciar um alerta.
-
-Alertas (WhatsApp / E-mail / Log): regra mínima demonstrada (ex.: vib ≥ 0,8 ou air_q ≤ 60); registrar evento (timestamp, regra, valor, ação).
+1) Sensores (Temperatura, Vibração, Luminosidade, Qualidade do ar): leituras periódicas com timestamp (intervalo configurável, ex. 1–10 s).
+2) ESP32 / Simulação (Wokwi/VSCode/PlatformIO): lê os sensores e envia payload JSON com timestamp.
+3) Transporte (MQTT/HTTP/Serial): broker/endpoint de ingestão que assina/recebe mensagens (ex.: factory/sensors/#).
+4) Ingestão / ETL simples: converte raw → CSV/JSON e realiza INSERT em lote no banco (com logs como evidência).
+5) Banco de Dados (Oracle): armazenamento relacional conforme DER; chaves/índices para integridade e consulta. Tabelas-chave: devices, readings (temp, vib, lum, air_q, payload), alerts, models.
+6) ML (batch): seleciona dados do DB para treino/inferência e gera ≥1 métrica + ≥1 gráfico.
+7) Dashboard (Streamlit): exibe KPIs (média/variação dos sensores, score do modelo, #alertas) e permite evidenciar um alerta.
+8) Alertas (WhatsApp / E-mail / Log): regra mínima demonstrada (ex.: vib ≥ 0,8 ou air_q ≤ 60); registrar evento (timestamp, regra, valor, ação).
 
 ▶️ Ordem de execução (pipeline)
 
 Ingestão: iniciar broker/endpoint e consumer (gera raw + logs).
-
 Banco: executar scripts de criação/carga.
-
 ML: rodar treino/inferência e salvar métrica + gráfico.
-
 Dashboard: abrir o app e demonstrar pelo menos 1 alerta (pode simular spike); capturar banner/print e log.
