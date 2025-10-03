@@ -54,3 +54,5 @@ A partir daí, o fluxo segue para banco de dados → ML → dashboard/alertas.
 
 📸 Evidências
 saida_sensor.csv → demonstra os dados capturados/simulados.
+
+Esses dados coletados (reais ou simulados) são o ponto inicial do fluxo do projeto HERMIA, sendo integrados ao banco de dados (pasta /db) e posteriormente consumidos pelo ML e pelo dashboard (pasta /dashboard)
