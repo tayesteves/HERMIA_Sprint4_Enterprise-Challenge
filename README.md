@@ -12,42 +12,17 @@ Equipe
 - **Tayná** - RM562491
 - **Vinicius** - RM566269
 
-## 📖 Descrição do Projeto
+📂 Estrutura do Repositório
 
-O projeto **HERMIA (Hermes Reply Intelligent Assistant)** foi desenvolvido como parte do **Enterprise Challenge da FIAP** em parceria com a **Hermes Reply**.  
-Trata-se de um **sistema inteligente de monitoramento industrial** que integra sensores IoT, banco de dados relacional, algoritmos de Machine Learning e um dashboard interativo para análise e tomada de decisão.  
-
-A proposta é **detectar anomalias e disparar alertas em tempo real**, além de oferecer métricas históricas e previsões para apoiar gestores e operadores no chão de fábrica. O MVP integra todas as camadas essenciais de um pipeline moderno de Indústria 4.0: **coleta, ingestão, armazenamento, análise e visualização**.  
-
----
-
-## Visão Geral
-
-Este projeto entrega uma **solução integrada ponta a ponta** (MVP) que engloba:
-
-- Simulação ou leitura real de sensores via ESP32  
-- Ingestão de dados e persistência em banco relacional  
-- Modelo de Machine Learning  
-- Dashboard com KPIs, gráficos e alertas  
-- Arquitetura documentada para futuro escalonamento  
-
-O objetivo é demonstrar um pipeline funcional de Indústria 4.0, seguindo os requisitos do desafio (integrar entregas anteriores, observabilidade e reprodutibilidade).
+- [`/sensors`](./sensors) → Código para ESP32 (modo simulado e real), configuração no PlatformIO/Wokwi e saída dos sensores.  
+- [`/ingest`](./ingest) → Dados simulados de entrada (CSV) para popular o pipeline.  
+- [`/db`](./db) → Scripts SQL para criação do esquema (schema.sql) e consultas (queries.sql).  
+- [`/ml`](./ml) → Treinamento e execução de modelos de Machine Learning.  
+- [`/dashboard`](./dashboard) → Aplicação Streamlit para visualização de métricas e alertas, com evidências em `/dashboard/screenshots`.  
+- [`/docs/arquitetura`](./docs/arquitetura) → Diagramas e documentação do sistema.  
 
 ---
 
-## Estrutura do Repositório
-
-| Pasta / Arquivo        | Descrição |
-|-------------------------|-----------|
-| `sensors/`              | Código do ESP32, configuração PlatformIO, simulação (Wokwi) e `saida_sensor.csv` como evidência |
-| `ingest/`               | Dados simulados (`readings.csv`) e README explicando ingestão |
-| `db/`                   | Schema SQL, queries de evidência e README com instruções de uso |
-| `ml/`                   | Modelagem, inferência e visualizações (em desenvolvimento) |
-| `dashboard/`             | App Streamlit com KPIs, gráficos e alertas |
-| `docs/arquitetura/`     | Diagrama do fluxo integrado (draw.io + PNG) |
-| `README.md` (raiz)      | Este arquivo, guia geral do projeto |
-
----
 
 ## Fluxo de Dados (ponta a ponta)
 
