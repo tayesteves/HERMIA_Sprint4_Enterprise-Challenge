@@ -81,29 +81,28 @@ O objetivo é demonstrar um pipeline funcional de Indústria 4.0, seguindo os re
    git clone https://github.com/tayesteves/HERMIA_Sprint4_Enterprise-Challenge.git
    cd HERMIA_Sprint4_Enterprise-Challenge
 
-Prepare os dados de entrada
-Caso queira rodar em modo simulado ou modo real (ESP32), siga as instruções no README da pasta sensors/.
+Caso queira rodar em modo simulado ou modo real (ESP32), siga as instruções no README da pasta sensors/
+.
 O resultado esperado é o arquivo ingest/readings.csv.
 
-Criar e popular o banco de dados (SQLite)
-  bash
-  Copiar código
-  sqlite3 hermia.db < db/schema.sql
-  sqlite3 hermia.db < db/queries.sql
+- Criar e popular o banco de dados (SQLite)
+   ```bash
+   sqlite3 hermia.db < db/schema.sql
+   sqlite3 hermia.db < db/queries.sql
 
-Treinar / rodar modelo de Machine Learning
-  bash
-  Copiar código
-  cd ml
-  python train_model.py
 
-Executar o dashboard (Streamlit)
-  bash
-  Copiar código
-  cd dashboard
-  streamlit run streamlit_app.py
+- Treinar / rodar modelo de Machine Learning
+   ```bash
+   cd ml
+   python train_model.py
 
-Evidências
+- Executar o dashboard (Streamlit)
+ ```bash
+   cd dashboard
+   streamlit run streamlit_app.py
+. 
+
+- Evidências
 Arquitetura do sistema: /docs/arquitetura/SPRINT4-hermia.drawio.png
 Prints de execução no dashboard: /dashboard/screenshots/
 Saída simulada dos sensores: /sensors/saida_sensor.csv
