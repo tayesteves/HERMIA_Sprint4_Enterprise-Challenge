@@ -1,0 +1,44 @@
+Dashboard – HERMIA Sprint 4
+
+Este dashboard foi desenvolvido em Streamlit para exibir os KPIs do processo, os gráficos de séries temporais e os alertas gerados a partir das leituras dos sensores (reais ou simulados).
+
+1. Como rodar
+Instale as dependências (na raiz do projeto):
+pip install -r requirements.txt
+
+Entre na pasta do dashboard:
+cd dashboard
+
+Rode o app:
+streamlit run streamlit_app.py
+
+2. Arquivos
+
+streamlit_app.py → código principal do dashboard (KPIs, gráfico, alertas e log).
+alerts.csv → log de evidências de alertas.
+readings.csv (vem da pasta ingest/) → arquivo de leituras simuladas carregado pelo app.
+
+3. Como funciona
+
+O dashboard lê o arquivo readings.csv (com dados de vibração, luminosidade, temperatura e qualidade do ar).
+As leituras podem ser geradas automaticamente (simulação) ou carregadas manualmente.
+O usuário pode configurar regras de alarme pela barra lateral:
+Vibração acima de um limite.
+Qualidade do ar abaixo de um limite.
+Luminosidade ou temperatura fora de uma faixa aceitável.
+Para cada leitura, o sistema aplica as regras e classifica o alerta em:
+
+✅ Sem alerta
+⚠️ Baixa/Média severidade
+🚨 Alta severidade
+
+Quando disparado, o alerta é registrado no arquivo alerts.csv, funcionando como evidência de log.
+
+4. Evidências
+
+Exemplos de prints do dashboard podem ser encontrados em /docs/screenshots/.
+Eles mostram:
+KPIs principais,
+gráfico de série temporal,
+exemplo de alerta disparado,
+log de evidências de alertas.
