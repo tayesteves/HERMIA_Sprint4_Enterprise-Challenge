@@ -7,8 +7,7 @@
 <br>
 
 # Nome do projeto
-Fase 6 - Colheita de soluções inteligentes - transformando dados em ações
-Enterprise Challenge - Sprint 4 - Reply
+Fase 6 - Colheita de soluções inteligentes - Transformando dados em ações / Enterprise Challenge - Sprint 4 - Reply
 
 ## Nome do grupo
 Equipe Fiap
