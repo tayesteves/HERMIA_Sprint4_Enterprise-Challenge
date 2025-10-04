@@ -12,7 +12,8 @@ Equipe
 - **Tayná** - RM562491
 - **Vinicius** - RM566269
 
-   Descrição do Projeto
+Descrição do Projeto
+
 O **HERMIA** é um MVP de **Indústria 4.0** que integra:
 - **Sensores IoT (ESP32)** em modo real ou simulado,
 - **Ingestão** de dados em CSV,
