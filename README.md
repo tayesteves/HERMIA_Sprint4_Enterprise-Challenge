@@ -49,6 +49,95 @@ Equipe
 
 ---
 
+## 🗄️ Como o Banco de Dados foi Modelado
+
+O banco de dados foi projetado para garantir a **integridade dos dados coletados pelos sensores**, registrar **alertas de falhas** e manter um **histórico de manutenção** das máquinas monitoradas. O modelo segue princípios de normalização e respeita as regras de integridade e restrições definidas.
+
+---
+
+### Estrutura Geral das Tabelas
+
+- **Tabela `MAQUINA_AUTONOMA`**
+  - Armazena informações das máquinas monitoradas.
+  - **Chave primária:** `ID_MAQUINA`
+  - **Restrições:** `NOT NULL` em campos essenciais; `CHECK (Tipo IN ('Solda','Corte','Montagem','Pintura'))` garante apenas tipos válidos de máquina.
+
+- **Tabela `LEITURA_SENSORES`**
+  - Centraliza as leituras enviadas pelos sensores (temperatura, vibração, luminosidade, qualidade do ar, etc.).
+  - **Chave primária:** `ID_LEITURA_SENSORES`
+  - **Chave estrangeira:** `ID_MAQUINA` → `MAQUINA_AUTONOMA` (garante que cada leitura pertença a uma máquina existente).
+  - **Restrições:** 
+    - `NOT NULL` evita dados ausentes.
+    - `CHECK` define intervalos plausíveis:
+      - `TEMPERATURA`: -50 a 150 °C  
+      - `UMIDADE`: 0 a 100 %  
+      - `FALHA`: 0 ou 1  
+      - `LUMINOSIDADE`: 0 a 1000 lux  
+      - `VIBRACAO`: 0 a 100  
+      - `QUALIDADE_AR`: 0 a 500  
+      - `DIAS_ULTIMA_MANUTENCAO`: 0 a 37000  
+
+- **Tabela `FUNCIONARIO`**
+  - Registra os responsáveis por manutenção.
+  - **Chave primária:** `ID_FUNCIONARIO`
+  - **Restrições:**
+    - `NOT NULL` em todas as colunas.
+    - `CHECK (Salario >= 1518)` assegura que salários sejam acima do mínimo.
+
+- **Tabela `MANUTENCAO`**
+  - Registra eventos de manutenção preventiva ou corretiva.
+  - **Chave primária:** `ID_MANUTENCAO`
+  - **Chaves estrangeiras:**
+    - `ID_FUNCIONARIO` → `FUNCIONARIO`
+    - `ID_MAQUINA` → `MAQUINA_AUTONOMA`
+  - **Restrições:** `NOT NULL` em todos os campos.
+
+- **Tabela `ALERTS` (complementar ao dashboard)**
+  - Mantém o log de alertas disparados pelas regras de negócio do sistema.
+  - **Colunas principais:**
+    - `ts` (timestamp do alerta)  
+    - `device_id` (máquina associada)  
+    - `regra` (condição disparada, ex.: `vib≥0.8`)  
+    - `valor` (valor medido no momento)  
+    - `severidade` (baixa, média ou alta)  
+    - `status` (registrado, tratado, etc.)  
+
+---
+
+### Relacionamentos Principais
+
+- **1:N entre `MAQUINA_AUTONOMA` e `LEITURA_SENSORES`**  
+  Cada máquina pode ter milhares de leituras ao longo do tempo.  
+
+- **1:N entre `MAQUINA_AUTONOMA` e `MANUTENCAO`**  
+  Uma máquina pode passar por várias manutenções.  
+
+- **1:N entre `FUNCIONARIO` e `MANUTENCAO`**  
+  Um funcionário pode ser responsável por diversas manutenções.  
+
+- **1:N entre `LEITURA_SENSORES` e `ALERTS`**  
+  Uma única leitura pode gerar nenhum ou vários alertas, dependendo das regras ativas.
+
+---
+
+### Justificativa do Modelo
+
+- **Integridade:** chaves primárias e estrangeiras asseguram consistência entre máquinas, leituras e manutenções.  
+- **Confiabilidade:** `CHECK` em faixas plausíveis evita registros incorretos ou fora de contexto.  
+- **Escalabilidade:** a presença de `device_id` permite monitorar múltiplas máquinas sem mudar o modelo.  
+- **Auditabilidade:** o log de alertas garante rastreabilidade, fundamental em cenários industriais.  
+- **Organização:** separação clara entre dados operacionais (leituras), gerenciais (funcionários) e corretivos (manutenções).
+
+---
+
+### Evidências
+
+- Script de criação: [`/db/schema.sql`](./db/schema.sql)  
+- Consultas SQL de exemplo: [`/db/queries.sql`](./db/queries.sql)  
+- Arquivo de ingestão de leituras: [`/ingest/readings.csv`](./ingest/readings.csv)  
+- Log de alertas gerados pelo dashboard: [`/dashboard/alerts.csv`](./dashboard/alerts.csv)  
+
+
 ## ▶️ Como Executar
 
 1. Clone o repositório  
