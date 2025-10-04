@@ -71,6 +71,11 @@ O banco de dados foi projetado para garantir a **integridade dos dados coletados
 
 ---
 
+## DER (Modelo Entidade-Relacionamento)
+![DER do banco](./DER.png)
+
+---
+
 ### Estrutura Geral das Tabelas
 
 - **Tabela `MAQUINA_AUTONOMA`**
