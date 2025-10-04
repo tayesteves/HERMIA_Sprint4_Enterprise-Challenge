@@ -1,20 +1,34 @@
-# HERMIA_Sprint4_Enterprise-Challenge
+# FIAP - Faculdade de Informática e Administração Paulista
 
-### FIAP - Faculdade de Informática e Administração Paulista
+<p align="center">
+<a href="https://www.fiap.com.br/"><img src="assets/logo-fiap.png" alt="FIAP - Faculdade de Informática e Administração Paulista" width="40%"></a>
+</p>
 
-# 🌐 HERMIA Sprint 4 — Enterprise Challenge FIAP / Hermes Reply
+<br>
 
-Equipe 
+# Nome do projeto
+Fase 6 - Colheita de soluções inteligentes - transformando dados em ações
+Enterprise Challenge - Sprint 4 - Reply
 
-- **Carlos** - RM566487
-- **Endrew** - RM563646
-- **João** - RM565999
-- **Tayná** - RM562491
-- **Vinicius** - RM566269
+## Nome do grupo
+Equipe Fiap
+
+## 👨‍🎓 Integrantes: 
+- <a href="https://www.linkedin.com/company/inova-fusca">**Carlos** - RM566487</a>
+- <a href="https://www.linkedin.com/company/inova-fusca">**Endrew** - RM563646</a>
+- <a href="https://www.linkedin.com/company/inova-fusca">**João** - RM565999</a> 
+- <a href="https://www.linkedin.com/company/inova-fusca">**Tayná** - RM562491</a> 
+- <a href="https://www.linkedin.com/company/inova-fusca">**Vinicius** - RM566269</a>
+
+## 👩‍🏫 Professores:
+### Tutor(a) 
+- <a href="https://www.linkedin.com/company/inova-fusca">André Godoi Chiovato</a>
+### Coordenador(a)
+- <a href="https://www.linkedin.com/company/inova-fusca">Lucas Gomes Moreirar</a>
 
 ---
 
-Descrição do Projeto
+## 📜 Descrição
 
 O **HERMIA** é um MVP de **Indústria 4.0** que integra:
 - **Sensores IoT (ESP32)** em modo real ou simulado,
@@ -27,8 +41,9 @@ O objetivo é demonstrar um **pipeline ponta a ponta**: coleta → ingestão →
 
 ---
 
+## 📂 Estrutura do Repositório
 
-📂 Estrutura do Repositório
+![Estrutura do Repositório]("C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\figs\estrutura_diretorios.png")
 
 - [`/sensors`](./sensors) → Código para ESP32 (modo simulado e real), configuração no PlatformIO/Wokwi e saída dos sensores.  
 - [`/ingest`](./ingest) → Dados simulados de entrada (CSV) para popular o pipeline.  
@@ -39,8 +54,7 @@ O objetivo é demonstrar um **pipeline ponta a ponta**: coleta → ingestão →
 
 ---
 
-
-## Fluxo de Dados (ponta a ponta)
+## 🔄 Fluxo de Dados (ponta a ponta)
 
 1. **Sensores / Simulação**  
    O ESP32 (em modo real ou simulado) gera leituras de temperatura, vibração, luminosidade e qualidade do ar.  
@@ -65,14 +79,12 @@ O objetivo é demonstrar um **pipeline ponta a ponta**: coleta → ingestão →
 
 ---
 
-## 🗄️ Como o Banco de Dados foi Modelado
+## 🗄️ Modelo de Dados
 
-O banco de dados foi projetado para garantir a **integridade dos dados coletados pelos sensores**, registrar **alertas de falhas** e manter um **histórico de manutenção** das máquinas monitoradas. O modelo segue princípios de normalização e respeita as regras de integridade e restrições definidas.
-
----
-
-## DER (Modelo Entidade-Relacionamento)
-![DER do banco](./DER.png)
+📌 **Diagrama da Arquitetura do Sistema:**  
+<p align="center">
+  <img src="C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\figs\SPRINT4-hermia.drawio.png" alt="Arquitetura do Sistema" width="70%">
+</p>
 
 ---
 
@@ -81,83 +93,38 @@ O banco de dados foi projetado para garantir a **integridade dos dados coletados
 - **Tabela `MAQUINA_AUTONOMA`**
   - Armazena informações das máquinas monitoradas.
   - **Chave primária:** `ID_MAQUINA`
-  - **Restrições:** `NOT NULL` em campos essenciais; `CHECK (Tipo IN ('Solda','Corte','Montagem','Pintura'))` garante apenas tipos válidos de máquina.
+![MAQUINA_AUTONOMA](C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\figs\banco_dados\08_t_maquina_autonoma.png)
+
 
 - **Tabela `LEITURA_SENSORES`**
-  - Centraliza as leituras enviadas pelos sensores (temperatura, vibração, luminosidade, qualidade do ar, etc.).
-  - **Chave primária:** `ID_LEITURA_SENSORES`
-  - **Chave estrangeira:** `ID_MAQUINA` → `MAQUINA_AUTONOMA` (garante que cada leitura pertença a uma máquina existente).
-  - **Restrições:** 
-    - `NOT NULL` evita dados ausentes.
-    - `CHECK` define intervalos plausíveis:
-      - `TEMPERATURA`: -50 a 150 °C  
-      - `UMIDADE`: 0 a 100 %  
-      - `FALHA`: 0 ou 1  
-      - `LUMINOSIDADE`: 0 a 1000 lux  
-      - `VIBRACAO`: 0 a 100  
-      - `QUALIDADE_AR`: 0 a 500  
-      - `DIAS_ULTIMA_MANUTENCAO`: 0 a 37000  
+  - Centraliza as leituras enviadas pelos sensores.  
+  - Temperatura, vibração, luminosidade, qualidade do ar etc.
+  ![LEITURA_SENSORES](C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\figs\banco_dados\04_t_leitura_sensores.png)
+
 
 - **Tabela `FUNCIONARIO`**
-  - Registra os responsáveis por manutenção.
-  - **Chave primária:** `ID_FUNCIONARIO`
-  - **Restrições:**
-    - `NOT NULL` em todas as colunas.
-    - `CHECK (Salario >= 1518)` assegura que salários sejam acima do mínimo.
+  - Registra responsáveis por manutenção.
+    ![FUNCIONARIO](C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\figs\banco_dados\02_t_funcionario.png)
+
 
 - **Tabela `MANUTENCAO`**
   - Registra eventos de manutenção preventiva ou corretiva.
-  - **Chave primária:** `ID_MANUTENCAO`
-  - **Chaves estrangeiras:**
-    - `ID_FUNCIONARIO` → `FUNCIONARIO`
-    - `ID_MAQUINA` → `MAQUINA_AUTONOMA`
-  - **Restrições:** `NOT NULL` em todos os campos.
+    ![MANUTENCAO](C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\figs\banco_dados\06_t_manutencao.png)
 
-- **Tabela `ALERTS` (complementar ao dashboard)**
-  - Mantém o log de alertas disparados pelas regras de negócio do sistema.
-  - **Colunas principais:**
-    - `ts` (timestamp do alerta)  
-    - `device_id` (máquina associada)  
-    - `regra` (condição disparada, ex.: `vib≥0.8`)  
-    - `valor` (valor medido no momento)  
-    - `severidade` (baixa, média ou alta)  
-    - `status` (registrado, tratado, etc.)  
+
+- **Tabela `ALERTS`**
+  - Mantém o log de alertas disparados pelo dashboard.
+  
 
 ---
 
-### Relacionamentos Principais
+## 🖼️ Evidências
 
-- **1:N entre `MAQUINA_AUTONOMA` e `LEITURA_SENSORES`**  
-  Cada máquina pode ter milhares de leituras ao longo do tempo.  
-
-- **1:N entre `MAQUINA_AUTONOMA` e `MANUTENCAO`**  
-  Uma máquina pode passar por várias manutenções.  
-
-- **1:N entre `FUNCIONARIO` e `MANUTENCAO`**  
-  Um funcionário pode ser responsável por diversas manutenções.  
-
-- **1:N entre `LEITURA_SENSORES` e `ALERTS`**  
-  Uma única leitura pode gerar nenhum ou vários alertas, dependendo das regras ativas.
-
+📌 **Dashboard - KPIs e Alertas:**  
+    ![DASHBOARD 1]("C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\dashboards\dashboard_enriquecidos.html")
+    
+    ![DASHBOARD 2](""C:\Users\CarlosSouza\PycharmProjects\PythonProject1\Enterprise_Challenge_Sprint_4_Reply\dados_saida\dashboards\dashboard.html"")
 ---
-
-### Justificativa do Modelo
-
-- **Integridade:** chaves primárias e estrangeiras asseguram consistência entre máquinas, leituras e manutenções.  
-- **Confiabilidade:** `CHECK` em faixas plausíveis evita registros incorretos ou fora de contexto.  
-- **Escalabilidade:** a presença de `device_id` permite monitorar múltiplas máquinas sem mudar o modelo.  
-- **Auditabilidade:** o log de alertas garante rastreabilidade, fundamental em cenários industriais.  
-- **Organização:** separação clara entre dados operacionais (leituras), gerenciais (funcionários) e corretivos (manutenções).
-
----
-
-### Evidências
-
-- Script de criação: [`/db/schema.sql`](./db/schema.sql)  
-- Consultas SQL de exemplo: [`/db/queries.sql`](./db/queries.sql)  
-- Arquivo de ingestão de leituras: [`/ingest/readings.csv`](./ingest/readings.csv)  
-- Log de alertas gerados pelo dashboard: [`/dashboard/alerts.csv`](./dashboard/alerts.csv)  
-
 
 ## ▶️ Como Executar
 
@@ -165,34 +132,3 @@ O banco de dados foi projetado para garantir a **integridade dos dados coletados
    ```bash
    git clone https://github.com/tayesteves/HERMIA_Sprint4_Enterprise-Challenge.git
    cd HERMIA_Sprint4_Enterprise-Challenge
-
-Caso queira rodar em modo simulado ou modo real (ESP32), siga as instruções no README da pasta sensors/
-.
-O resultado esperado é o arquivo ingest/readings.csv.
-
-- Criar e popular o banco de dados (SQLite)
-   ```bash
-   sqlite3 hermia.db < db/schema.sql
-   sqlite3 hermia.db < db/queries.sql
-
-
-- Treinar / rodar modelo de Machine Learning
-   ```bash
-   cd ml
-   python train_model.py
-
-- Executar o dashboard (Streamlit)
- ```bash
-   cd dashboard
-   streamlit run streamlit_app.py
-. 
-
-- Evidências
-Arquitetura do sistema: /docs/arquitetura/SPRINT4-hermia.drawio.png
-Prints de execução no dashboard: /dashboard/screenshots/
-Saída simulada dos sensores: /sensors/saida_sensor.csv
-
-
-📢 Observações Finais
-Este repositório evoluiu das entregas anteriores, combinando arquitetura planejada, simulação, modelagem e visualização em um MVP funcional.
-A proposta central é evidenciar integração entre camadas, rastreabilidade dos dados e flexibilidade para evolução futura.
