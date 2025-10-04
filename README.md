@@ -12,6 +12,8 @@ Equipe
 - **Tayná** - RM562491
 - **Vinicius** - RM566269
 
+---
+
 Descrição do Projeto
 
 O **HERMIA** é um MVP de **Indústria 4.0** que integra:
@@ -22,6 +24,9 @@ O **HERMIA** é um MVP de **Indústria 4.0** que integra:
 - **Dashboard (Streamlit)** com KPIs, gráficos e **alertas** com log de evidências.
 
 O objetivo é demonstrar um **pipeline ponta a ponta**: coleta → ingestão → persistência → análise → visualização/alertas, com foco em **observabilidade e reprodutibilidade**.
+
+---
+
 
 📂 Estrutura do Repositório
 
