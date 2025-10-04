@@ -12,6 +12,16 @@ Equipe
 - **Tayná** - RM562491
 - **Vinicius** - RM566269
 
+   Descrição do Projeto
+O **HERMIA** é um MVP de **Indústria 4.0** que integra:
+- **Sensores IoT (ESP32)** em modo real ou simulado,
+- **Ingestão** de dados em CSV,
+- **Banco relacional (SQLite)**,
+- **Machine Learning** (treino/inferência),
+- **Dashboard (Streamlit)** com KPIs, gráficos e **alertas** com log de evidências.
+
+O objetivo é demonstrar um **pipeline ponta a ponta**: coleta → ingestão → persistência → análise → visualização/alertas, com foco em **observabilidade e reprodutibilidade**.
+
 📂 Estrutura do Repositório
 
 - [`/sensors`](./sensors) → Código para ESP32 (modo simulado e real), configuração no PlatformIO/Wokwi e saída dos sensores.  
